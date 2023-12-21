@@ -1,10 +1,10 @@
-package com.kh.khis.controller;
+package com.kh.khist.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeContorller {
+public class HomeController {
 
 	@RequestMapping("/")
 	public String home() {

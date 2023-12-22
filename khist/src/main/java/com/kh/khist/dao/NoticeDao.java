@@ -11,5 +11,5 @@ public interface NoticeDao {
 	boolean delete(int noticeNo);
 	boolean update(NoticeDto noticeDto);
 	List<NoticeDto> selectList();
-	
+	NoticeDto selectOne(int noticeNo);
 }

@@ -40,5 +40,10 @@
 	<select id="list" resultType="NoticeDto">
 		select * from notice
 	</select>
-
+	
+	<!-- 게시글 상세 -->
+	<select id="findOne" resultType="NoticeDto">
+		select * from notice where notice_no = #{noticeNo}
+	</select>
+	
 </mapper>

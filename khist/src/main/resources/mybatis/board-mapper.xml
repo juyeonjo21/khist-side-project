@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="board">
+    
+    <!-- 시퀀스 -->
+    <select id="sequence" resultType="int">
+    	select board_seq.nextval from dual
+    </select>
+    
+    <!-- 등록 -->
+    <insert id="add">
+    	insert into board(
+    		board_no, board_writer, board_title, board_content, board_date,
+    		board_category, board_blind, course_no
+    	)
+    	values(
+    		#{boardNo}, #{boardWriter}, #{boardTitle}, #{boardContent}, #{boardDate},
+    		 #{boardCategory}, #{boardBlind}, #{courseNo}
+    	)
+    </insert>
+    <!-- 수정 -->
+    <update id="edit">
+    	update board
+    	<set>
+    	<if test="boardDto.boardTitle != null">
+    		board_title = #{boardTitle},
+    	</if>
+    	<if test="boardDto.boardContent != null">
+    		board_content = #{boardContent},
+    	</if>
+    	<if test="boardDto.boardCategory != null">
+    		board_category = #{boardCategory}
+    	</if>
+    	</set>
+    	where board_no = #{boardNo}
+    </update>
+    
+    <!-- 전체 목록 조회 -->
+    <select id="list" resultType="BoardDto">
+    	select * from board
+    </select>
+    
+    <!-- 복합 검색 -->
+    
+    <!-- 삭제 -->
+    <delete id="delete">
+    	delete board where board_no = #{boardNo}
+    </delete>
+    
+</mapper>

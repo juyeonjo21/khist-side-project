@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="meeting">
+
+	<!-- 시퀀스 등록 -->
+	<select id="sequence" resultType="int">
+		select meeting_seq.nextval from dual 
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into meeting(
+			meeting_no, board_no, meeting_title, meeting_content,
+			meeting_location, meeting_status
+		)
+		values (
+			#{meetingNo}, #{boardNo}, #{meetingTitle}, #{meetingContent},
+			#{meetingLocationg}, #{meetingStatus}
+		)
+	</insert>
+	
+	
+	<!-- 조회(복합검색) + 페이지네이션 추가예정 -->
+	<select id="meetingList" resultType="MeetingDto">
+		select * from meeting
+		<where>
+			<if test="meeetingTitle != null">
+				meeting_title LIKE '%' || #{meetingTitle} || '%'
+			</if>
+			<if test="meetingStatus != null">
+				and meeting_status = #{meetingStatus}
+			</if>
+		</where>
+		order by meeting_no desc
+	</select>
+	
+	<!-- 상세 -->
+	<select id="detail" resultType="MeetingDto">
+		select * from meeting where meeting_no = #{meetingNo}
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		delete meeting where meeting_no = #{meetingNo}
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="edit">
+		update meeting
+		<set>
+			<if test="meetingDto.meetingTitle != null">
+				meeting_title = #{meetingDto.meetingTitle},
+			</if>
+			<if test="meetingDto.meetingContent != null">
+				meeting_content = #{meetingDto.meetingContent},
+			</if>
+			<if test="meetingDto.meetingLocation != null">
+				meeting_location = #{meetingDto.meetingLocation},
+			</if>
+			<if test="meetingDto.meetingStatus != null">
+				meeting_status = #{meetingDto.meetingStatus}
+			</if>
+		</set>
+		where meeting_no = #{meetingNo}
+	</update>
+	
+</mapper>
+    

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="meetingMember">
+
+	<!-- 시퀀스 등록 -->
+	<select id="sequence" resultType="int">
+		select meeting_member_seq.nextval from dual 
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insert">
+		insert into meeting_member(
+			meeting_no, member_email, meeting_member_status
+		)
+		values (
+			#{meetingNo}, #{memberEmail}, #{meetingMemberStatus}
+	</insert>
+	
+	<!-- 수정(승인전에서 승인완료 누를 시 업데이트) -->
+	<update id="update">
+		update meeting_member
+			set meeting_member_status = #{meetingMemberStatus}
+		where meeting_no = #{meetingNo} and member_email = #{memberEmail}
+	</update>
+	
+	<!-- 삭제(회원이 미팅 취소 누른 경우 삭제) -->
+	<delete id="delete">
+		delete meeting_member where meeting_no = #{meetingNo} and member_email = #{memberEmail}
+	</delete>
+	
+	<!-- 목록 (승인완료 목록) -->
+	<select id="listByYes">
+		select mm.*, m.member_name 
+		from meeting_member mm
+    		inner join member m on mm.member_email = m.member_email
+    	where mm.meeting_no = #{meetingNo}
+	        and mm.member_email = #{memberEmail}
+	        and mm.meeting_member_status = 'Y'
+    	order by m.member_name desc
+	</select>
+	
+	<!-- 목록 (승인대기 목록) -->
+	<select id="listByNo">
+		select mm.*, m.member_name 
+		from meeting_member mm
+    		inner join member m on mm.member_email = m.member_email
+    	where mm.meeting_no = #{meetingNo}
+	        and mm.member_email = #{memberEmail}
+	        and mm.meeting_member_status = 'N'
+    	order by m.member_name desc
+	</select>
+</mapper>

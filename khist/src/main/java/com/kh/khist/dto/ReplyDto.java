@@ -15,5 +15,5 @@ public class ReplyDto {
 	private Date replyDate;
 	private int replyParent, replyDepth, replyGroup;
 	private String replyBlind;
-
+ 
 }

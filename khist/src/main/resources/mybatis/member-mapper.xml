@@ -9,15 +9,17 @@
 			member_email,
 			member_pw,
 			member_name,
-			member_birth,
-			member_contact
+			member_birth
 		)
 		values(
 			#{memberEmail},
 			#{memberPw},
 			#{memberName},
-			#{memberBirth},
-			#{memberContact}
+			#{memberBirth}
 		)
 	</insert>
+	
+	<select id="selectOne" resultType="MemberDto">
+		select * from member where member_email = #{memberEmail}
+	</select>
 </mapper>

@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class ReplyReportDto {
-	
-	private int reportNo, replyNo;
-	
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
+public class TeacherDto {
+	private int teacherNo;
+	private String teacherName;
 }

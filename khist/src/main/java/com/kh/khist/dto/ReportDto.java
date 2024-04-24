@@ -13,6 +13,6 @@ public class ReportDto {
 	private int reportNo;
 	private String reportReporter, reportReported;
 	private Date reportDate;
-	private String reportCategory;
+	private String reportContent;
 	
 }

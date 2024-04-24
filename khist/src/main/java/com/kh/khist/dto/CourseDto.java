@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class CourseDto {
 
 	private int courseNo;
+	private int teacherNo;
 	private String courseName, coursePlace;
 	private Date courseDate;
 

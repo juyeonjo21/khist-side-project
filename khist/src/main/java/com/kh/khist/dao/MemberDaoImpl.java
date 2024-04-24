@@ -21,4 +21,10 @@ public class MemberDaoImpl implements MemberDao{
 	public void join(MemberDto memberDto) {
 		sqlSession.insert("member.join", memberDto);
 	}
+
+	@Override
+	public MemberDto selectOne(String memberEmail) {
+		MemberDto memberDto = sqlSession.selectOne("member.selectOne", memberEmail);
+		return memberDto;
+	}
 }

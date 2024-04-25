@@ -11,7 +11,11 @@ public interface BoardDao {
 	boolean update(BoardDto boardDto);
 	boolean delete(int boardNo);
 	
+	//boolean updateReadcount(int boardNo);//조회수
+	
+	//목록처리
 	List<BoardDto> selectList();
+	
 	
 
 }

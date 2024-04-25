@@ -28,7 +28,12 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(@ModelAttribute MemberDto memberDto) {
 		memberDao.join(memberDto);
-		return "redirect:/";
+		return "redirect:joinFinish";
+	}
+	
+	@RequestMapping("/joinFinish")
+	public String joinFinish() {
+		return "member/joinFinish";
 	}
 	
 	@GetMapping("/login")

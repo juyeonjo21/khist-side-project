@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ include file="/WEB-INF/views/template/header.jsp"%>
     
     <!-- summernote cdn -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -34,39 +36,52 @@
     </script>
     
   <form action="write" method="post" autocomplete="off">
-    <div class="container w-800">
+    <div class="container w-600">
     	<div class="row">
-    		<h1>게시글 작성</h1>
+    		<h1 class="text-center mt-5">게시글 작성</h1>
     	</div>
     	<hr>
+    	<div class="row left">
+    		<div class="row">
+    			<select class="form-select form-select me-2" aria-label="select example">
+  				<option selected>게시판 선택</option>
+  				<option value="1">자유게시판</option>
+ 				<option value="2">우리반 게시판</option>
+  				<option value="3">스터디 게시판</option>
+  				<option value="4">강사 후기 게시판</option>
+				</select>
+    		</div>
+    	</div>
     		<div class="row left">
-    			<div class="row">
-    					<label>
-    					제목
-    					<span class="important fa-solid fa-asterisk red">
-             			</span>
-    					</label>
     				<div class=" row">
-    					<input type="text" required class="form-input w-100"
-    					style="width:600px;" name="boardTitle" oninput="checkBoardTitle();">
+    					<input type="text" placeholder="글 제목을 작성해주세요." required class="form-input w-100 mt-2"
+    					 name="boardTitle" oninput="checkBoardTitle();">
+    				</div>
+    			</div>
+    			<div class="row left">
+    				<div class=" row">
+    					<input type="text" placeholder="사진 첨부" required class="form-input w-100 mt-2"
+    					 name="boardTitle" oninput="checkBoardTitle();">
     				</div>
     			</div>
     				<div class="row left">
     				<div class="row">
-    					<label>
-    					내용
-    					<span class="important fa-solid fa-asterisk red"> 
-            			</span>
-    					</label>
-    				</div>
-    					<textarea name="boardContent" class="form-input w-100" 
-    					style="min-height:250px; width:600px; height:400px;"
+    					<textarea name="boardContent" class="form-input w-100 mt-3" 
+    					style="min-height:250px;"
     					 oninput="checkBoardContent();"></textarea>
     				</div>
+    				</div>
+    				
+    		<div class="row left">
     			<div class="row">
-    				<button type="submit" class="btn btn-positive w-100">
+    				<button type="submit" class="btn btn-primary w-100 mt-5">
     				<i class="fa-solid fa-pen"></i>등록</button>
-    				<a class="btn w-100" href="${pageContext.request.contextPath}/board/list">목록으로</a>
+    			</div>
+    		</div>
+    			
+    		<div class="row left">
+    			<div class="row">
+    				<a class="btn w-100 mt-2" href="${pageContext.request.contextPath}/board/list">목록으로</a>
     			</div>
     		</div>
     	</div>

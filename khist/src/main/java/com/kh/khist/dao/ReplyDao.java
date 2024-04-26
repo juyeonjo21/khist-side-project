@@ -11,6 +11,7 @@ public interface ReplyDao {
 	boolean delete(int replyNo);//삭제
 	
 	List<ReplyDto> selectList();
+	ReplyDto selectOne(int replyNo);
 	
 
 }

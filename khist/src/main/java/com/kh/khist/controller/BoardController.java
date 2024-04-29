@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.khist.dao.BoardDao;
 import com.kh.khist.dto.BoardDto;
@@ -48,6 +49,14 @@ public class BoardController {
 		boardDto.setBoardWriter(memberEmail);
 		boardDao.insert(boardDto);//글 등록
 		return "redirect:/board/list";
+	}
+	
+	//게시글 상세
+	@RequestMapping("/detail")
+	public String detail(Model model, @RequestParam int boardNo) {
+		BoardDto boardDto = boardDao.selectOne(boardNo);
+		model.addAttribute("boardDto",boardDto);
+		return "board/detail";
 	}
 	
 }

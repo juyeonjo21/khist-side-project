@@ -10,6 +10,8 @@
     
     <c:choose>
     	<c:when test="${sessionScope.email!=null}">
+		    <br><br>
+		    <a href="${pageContext.request.contextPath}/board/list">게시판</a>
     		<br><br>
     		<a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>	
     	</c:when>

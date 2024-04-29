@@ -34,34 +34,38 @@
     		});
     	});
     </script>
+    <!-- 카테고리 -->
+    <script>
+	    
+    </script>
     
   <form action="write" method="post" autocomplete="off">
     <div class="container w-600">
-    	<div class="row">
+    	<div class="row justify-content-center mt-5">
     		<h1 class="text-center mt-5">게시글 작성</h1>
     	</div>
     	<hr>
     	<div class="row left">
     		<div class="row">
-    			<select class="form-select form-select me-2" aria-label="select example">
+    			<select name="boardCategory" required class="form-select me-2">
   				<option selected>게시판 선택</option>
-  				<option value="1">자유게시판</option>
- 				<option value="2">우리반 게시판</option>
-  				<option value="3">스터디 게시판</option>
-  				<option value="4">강사 후기 게시판</option>
+  				<option value="자유 게시판">자유 게시판</option>
+ 				<option value="우리반 게시판">우리반 게시판</option>
+  				<option value="스터디 게시판">스터디 게시판</option>
+  				<option value="강사후기 게시판">강사후기 게시판</option>
 				</select>
     		</div>
     	</div>
     		<div class="row left">
-    				<div class=" row">
+    				<div class="row">
     					<input type="text" placeholder="글 제목을 작성해주세요." required class="form-input w-100 mt-2"
     					 name="boardTitle" oninput="checkBoardTitle();">
     				</div>
     			</div>
     			<div class="row left">
-    				<div class=" row">
-    					<input type="text" placeholder="사진 첨부" required class="form-input w-100 mt-2"
-    					 name="boardTitle" oninput="checkBoardTitle();">
+    				<div class="row">
+    					<input type="file" placeholder="사진 첨부" required class="w-100 file-chooser mt-2"
+    					 name="boardImage" oninput="checkBoardImage();">
     				</div>
     			</div>
     				<div class="row left">

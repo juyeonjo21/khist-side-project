@@ -42,6 +42,11 @@
     	select * from board
     </select>
     
+    <!-- 단일 조회 -->
+    <select id="findOne" resultType="BoardDto">
+    	select * from board where board_no = #{boardNo}
+    </select>
+    
     <!-- 복합 검색 -->
     
     <!-- 삭제 -->

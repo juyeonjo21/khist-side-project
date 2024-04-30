@@ -21,6 +21,7 @@
 					</a>
 				</div>
 			</c:if>
+			<a class="btn w-100 mt-2" href="${pageContext.request.contextPath}/">홈으로</a>
 		<hr>
 		<div class="row">
 		<table class="table table-slit">
@@ -50,7 +51,7 @@
 							${boardDto.boardTitle}
 						</a>
 					</td>
-					<td>${boardDto.boardWriter}</td>
+					<td>${boardDto.memberName}</td>
 					<td>${boardDto.boardDate}</td>
 					<td>${boardLikeDto.boardLikecount}</td>
 				</tr>

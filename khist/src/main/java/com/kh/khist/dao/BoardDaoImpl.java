@@ -47,7 +47,7 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public BoardDto selectOne(int boardNo) {
-		return sqlSession.selectOne("board.findOne");
+		return sqlSession.selectOne("board.findOne", boardNo);
 	}
 
 }

@@ -14,14 +14,30 @@
 			<table class="table table-slit">
 			<tbody>
 				<tr>
-					<td>${boardDto.boardNo}</td>
-					<td>${boardDto.boardCategory}</td>
-					<td>${boardDto.boardWriter}</td>
-					<td>${boardDto.boardDate}</td>
-					<td>${boardDto.boadReadCount}</td>
-					<td colspan="3">${boardDto.boardContent}</td>
+					<td>카테고리 : ${boardDto.boardCategory}</td>
+				</tr>
+				<tr>	
+					<td>작성자 : ${boardDto.memberName}</td>
+				</tr>
+				<tr>
+					<td>작성일 : ${boardDto.boardDate}</td>
+				</tr>
+				<tr>
+					<td> 첨부파일 : 
+					<img id="boardImage${boardDto.boardNo}"
+					src="${pageContext.request.contextPath}/image?boardNo=${boardDto.boardNo}" width="100"
+					height="100">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">내용 : ${boardDto.boardContent}</td>
 				</tr>
 			</tbody>
-		</table>				
+		</table>	
+		<div class="row left">
+				<div class="row">
+    				<a class="btn w-100 mt-2" href="${pageContext.request.contextPath}/board/list">목록으로</a>
+				</div>
+			</div>			
 		</div>
 	</div>

@@ -51,7 +51,7 @@
 							${boardDto.boardTitle}
 						</a>
 					</td>
-					<td>${boardDto.memberName}</td>
+					<td>${boardDto.boardWriter}</td>
 					<td>${boardDto.boardDate}</td>
 					<td>${boardLikeDto.boardLikecount}</td>
 				</tr>

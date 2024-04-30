@@ -17,7 +17,7 @@
 					<td>카테고리 : ${boardDto.boardCategory}</td>
 				</tr>
 				<tr>	
-					<td>작성자 : ${boardDto.memberName}</td>
+					<td>작성자 : ${boardDto.boardWriter}</td>
 				</tr>
 				<tr>
 					<td>작성일 : ${boardDto.boardDate}</td>

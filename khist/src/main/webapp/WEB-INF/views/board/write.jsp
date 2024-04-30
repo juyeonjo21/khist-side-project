@@ -65,7 +65,7 @@
     			<div class="row left">
     				<div class="row">
     					<input type="file" placeholder="사진 첨부" required class="w-100 file-chooser mt-2"
-    					 name="boardImage" oninput="checkBoardImage();">
+    					 name="attach" accept="image/*">
     				</div>
     			</div>
     				<div class="row left">

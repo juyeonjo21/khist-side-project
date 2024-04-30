@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class BoardDto {
 	private int boardNo;
 	private int courseNo;
+	private String memberName;
 	private String boardWriter, boardTitle, boardContent;
 	private Date boardDate;
 	private String boardCategory, boardBlind;

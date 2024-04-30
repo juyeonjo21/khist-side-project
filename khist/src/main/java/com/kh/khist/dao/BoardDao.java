@@ -15,7 +15,6 @@ public interface BoardDao {
 	
 	//목록처리
 	List<BoardDto> selectList();
-	
-	
+	BoardDto selectOne(int boardNo);
 
 }

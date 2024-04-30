@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <%@ include file="/WEB-INF/views/template/header.jsp"%>
 
 <script>
@@ -11,17 +13,19 @@
 		<div class="row mt-5">
 				<h1 class="text-center">자유 게시판</h1>
 		</div>
+			<%-- 글쓰기는 로그인 상태인 경우에만 출력 --%>
+			<c:if test="${sessionScope.email != null}">
+			<div class="row right">
+				<a href="write" class="btn">
+					글쓰기
+					</a>
+				</div>
+			</c:if>
 		<hr>
 		<div class="row">
 		<table class="table table-slit">
 			<thead>
 				<tr>
-					<c:if test="${sessionScope.level == '관리자'}">
-					<th>
-						<!-- 전체선택 체크박스 -->
-						<input type="checkbox" class="check-all">
-					</th>
-					</c:if>
 					<th>번호</th>
 					<th width="40%">제목</th>
 					<th>작성자</th>
@@ -30,6 +34,28 @@
 					<th>좋아요</th>
 				</tr>
 			</thead>
+				<tbody>
+			<c:forEach var="boardDto" items="${list}">
+				<tr>
+					<%-- <c:if test="${sessionScope.level == '관리자'}">
+					<td>
+						<!-- 개별항목 체크박스 -->
+						<input type="checkbox" class="check-item" name="boardNoList" value="${boardListDto.boardNo}">
+					</td>
+					</c:if> --%>
+					<td>${boardDto.boardNo}</td>
+						<td align="left">
+						<!-- 제목을 누르면 상세페이지로 이동 -->
+						<a class="link" href="detail?boardNo=${boardDto.boardNo}">
+							${boardDto.boardTitle}
+						</a>
+					</td>
+					<td>${boardDto.boardWriter}</td>
+					<td>${boardDto.boardDate}</td>
+					<td>${boardLikeDto.boardLikecount}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
 		</table>
 	  </div>
 	</div>

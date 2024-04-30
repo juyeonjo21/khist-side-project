@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="attach">
+    
+    <!-- 시퀀스 -->
+    <select id="sequence" resultType="int">
+    	select attach_seq.nextval from dual
+    </select>
+    
+    <!-- 등록 -->
+    <insert id="add">
+    	insert into attach(
+    		attach_no, attach_name, attach_size, attach_type
+    	)
+    	values(
+    		#{attach_no},#{attach_name},#{attach_size},#{attach_type}
+    	 )
+    </insert>
+    
+    <!-- 삭제 -->
+    <delete id="delete">
+    	delete attach where attach_no = #{attachNo}
+    </delete>
+    
+    <!-- 상세 -->
+    <select id="find" resultType="attachDto">
+    	select * from attach where attach_no = #{attachNo}
+    </select>
+    
+    <!-- 게시판 이미지 조회 -->
+    <select id="findBoardNoByAttachNo" resultType="int">
+    	select board_no from board_image where attach_no = #{attachNo}
+    </select>
+    
+    </mapper>

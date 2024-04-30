@@ -45,7 +45,7 @@ public class BoardController {
 		int boardNo = boardDao.sequence();//번호 구하고
 		boardDto.setBoardNo(boardNo);//dto에 추가
 		
-		String memberEmail = (String) session.getAttribute("name");//id불러오고
+		String memberEmail = (String) session.getAttribute("email");//id불러오고
 		boardDto.setBoardWriter(memberEmail);
 		boardDao.insert(boardDto);//글 등록
 		return "redirect:/board/list";

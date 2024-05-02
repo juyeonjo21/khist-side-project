@@ -41,7 +41,7 @@
 					<%-- <c:if test="${sessionScope.level == '관리자'}">
 					<td>
 						<!-- 개별항목 체크박스 -->
-						<input type="checkbox" class="check-item" name="boardNoList" value="${boardListDto.boardNo}">
+						<input type="checkbox" class="check-item" name="boardNoList" value="${boardLikeDto.boardNo}">
 					</td>
 					</c:if> --%>
 					<td>${boardDto.boardNo}</td>
@@ -51,8 +51,9 @@
 							${boardDto.boardTitle}
 						</a>
 					</td>
-					<td>${boardDto.boardWriter}</td>
+					<td>${writerName}</td>
 					<td>${boardDto.boardDate}</td>
+					<td>${boardDto.boardReadCount}</td>
 					<td>${boardLikeDto.boardLikecount}</td>
 				</tr>
 				</c:forEach>

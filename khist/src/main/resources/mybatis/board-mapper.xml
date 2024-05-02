@@ -39,12 +39,17 @@
     
     <!-- 전체 목록 조회 -->
     <select id="list" resultType="BoardDto">
-    	select * from board
+    	select * from board order by board_no DESC
     </select>
     
     <!-- 단일 조회 -->
     <select id="findOne" resultType="BoardDto">
     	select * from board where board_no = #{boardNo}
+    </select>
+    
+    <!-- 회원 이메일로 이름 조회 -->
+    <select id="selectMemberNameByEmail" resultType="string">
+        SELECT member_name FROM member WHERE member_email = #{memberEmail}
     </select>
     
     <!-- 복합 검색 -->

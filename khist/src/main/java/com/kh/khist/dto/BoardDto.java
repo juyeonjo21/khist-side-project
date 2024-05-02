@@ -14,6 +14,7 @@ public class BoardDto {
 	private String memberName;
 	private String boardWriter, boardTitle, boardContent;
 	private Date boardDate;
+	private int boardReadCount;
 	private String boardCategory, boardBlind;
 
 }

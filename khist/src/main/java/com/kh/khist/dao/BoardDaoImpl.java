@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.khist.dto.BoardDto;
+import com.kh.khist.vo.BoardListVO;
 
 @Repository
 public class BoardDaoImpl implements BoardDao{
@@ -41,13 +42,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<BoardDto> selectList() {
+	public List<BoardListVO> selectList() {
 		return sqlSession.selectList("board.list");
 	}
 
 	@Override
 	public BoardDto selectOne(int boardNo) {
 		return sqlSession.selectOne("board.findOne", boardNo);
+	}
+
+	@Override
+	public String selectMemberNameByEmail(String writerEmail) {
+		return sqlSession.selectOne("board.selectMemberNameByEmail", writerEmail);
 	}
 
 }

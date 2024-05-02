@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.khist.dao.BoardDao;
 import com.kh.khist.dto.BoardDto;
+import com.kh.khist.vo.BoardListVO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class BoardController {
 	//게시판 조회
 	@RequestMapping("/list")
 	public String list(Model model) {
-		List<BoardDto> list = boardDao.selectList();
+		List<BoardListVO> list = boardDao.selectList();
 		model.addAttribute("list", list);
 		return "board/list";
 	}
@@ -56,6 +57,11 @@ public class BoardController {
 	public String detail(Model model, @RequestParam int boardNo) {
 		BoardDto boardDto = boardDao.selectOne(boardNo);
 		model.addAttribute("boardDto",boardDto);
+		
+		// 이메일로부터 회원의 이름 가져오기
+		String writerEmail = boardDto.getBoardWriter();
+	    String writerName = boardDao.selectMemberNameByEmail(writerEmail);
+	    model.addAttribute("writerName", writerName);
 		return "board/detail";
 	}
 	

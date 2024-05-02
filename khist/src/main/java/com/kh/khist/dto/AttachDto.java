@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class AttachDto {
 	private int attachNo;
 	private String attachName;
-	private int attachSize;
+	private long attachSize;
 	private String attachType;
 	private Date attachDate;
 

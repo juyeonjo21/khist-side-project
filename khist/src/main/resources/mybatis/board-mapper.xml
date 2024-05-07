@@ -20,6 +20,18 @@
     		#{boardNo}, #{boardWriter}, #{boardTitle}, #{boardContent}, #{boardCategory}
     	)
     </insert>
+    
+    <!-- 게시글 이미지 등록 -->
+    <insert id="connect">
+    	insert into board_image(
+    		board_no, attach_no
+    	)
+    	values(
+    		#{boardNo}, #{attachNo}
+    	)
+    	
+    </insert>
+    
     <!-- 수정 -->
     <update id="edit">
     	update board
@@ -38,7 +50,7 @@
     </update>
     
     <!-- 전체 목록 조회 -->
-    <select id="list" resultType="BoardDto">
+    <select id="list" resultType="BoardListVO">
     	select * from board order by board_no DESC
     </select>
     
@@ -52,9 +64,20 @@
         SELECT member_name FROM member WHERE member_email = #{memberEmail}
     </select>
     
+    <!-- 게시글 번호로 이미지 번호 찾기 -->
+    <select id="findBoardImage" resultType="AttachDto">
+    	select * from attach where 
+    		attach_no = (
+    		select attach_no from board_image
+    		where 
+    		board_no = #{boardNo}
+    	)
+    	
+    </select>
+    
     <!-- 복합 검색 -->
     
-    <!-- 삭제 -->
+	<!-- 삭제 -->
     <delete id="delete">
     	delete board where board_no = #{boardNo}
     </delete>

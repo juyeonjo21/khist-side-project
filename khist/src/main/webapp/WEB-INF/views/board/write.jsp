@@ -34,12 +34,42 @@
     		});
     	});
     </script>
+    
+    <!-- 파일 업로드 -->
+    <script>
+    $(function(){
+    	$(".btn-save").click(function(){
+    		var input = $(".file-chooser")[0];
+    		
+    		//if(input.files.length == 0) return;
+    		
+    		var form = new FormData();
+    		form.append("attach", input.files[0]);
+    		
+    		$.ajax({
+    			url:window.contextPath+"/c##khist",
+    			
+    			method:"post",
+    			processData:false,
+    			contentType:false,
+    			data:form,
+    			success:function(response){
+    				$("img").attr("src", window.contextPath + "/download?attachNo="+response.attachNo);
+    				$("[name=attachNo]").val(response.ataachNo);
+    			},
+    		});
+    		
+    	});
+    	
+    });
+    
+    </script>
     <!-- 카테고리 -->
     <script>
 	    
     </script>
     
-  <form action="write" method="post" autocomplete="off">
+  <form action="write" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="container w-600">
     	<div class="row justify-content-center mt-5">
     		<h1 class="text-center mt-5">게시글 작성</h1>
@@ -78,7 +108,7 @@
     				
     		<div class="row left">
     			<div class="row">
-    				<button type="submit" class="btn btn-primary w-100 mt-5">
+    				<button type="submit" class="btn btn-primary btn-save w-100 mt-5">
     				<i class="fa-solid fa-pen"></i>등록</button>
     			</div>
     		</div>

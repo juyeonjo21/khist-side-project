@@ -44,19 +44,20 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping("/login")
-		public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
-		MemberDto findDto = memberDao.login(memberDto);
-		if(findDto != null) {
-			session.setAttribute("email", findDto.getMemberEmail());
-			session.setAttribute("level", findDto.getMemberLevel());
-			session.setAttribute("course", findDto.getCourseNo());
-			return "redirect:/";
-		}
-		else {
-			return "redirect:login?error";
-		}
-	}
+//	@PostMapping("/login")
+//		public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
+//		int result = memberDao.login(memberDto);
+//		// 1 = 아이디 x, 2 = 비번 일치 x, 3 = 성공
+//		if(result == 3) {
+//			session.setAttribute("email", memberDto.getMemberEmail());
+//			session.setAttribute("level", memberDto.getMemberLevel());
+//			session.setAttribute("course", memberDto.getCourseNo());
+//			return "redirect:/";
+//		}
+//		else {
+//			return "redirect:login?error";
+//		}
+//	}
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {

@@ -73,7 +73,6 @@
 		</div>
 	</div>
 </form>
-
 <script>
 $(function(){
 	let status = {
@@ -253,3 +252,4 @@ $(function(){
 	
 });
 </script>
+<%@ include file="/WEB-INF/views/template/footer.jsp"%>

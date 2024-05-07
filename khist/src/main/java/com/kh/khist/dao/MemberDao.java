@@ -5,5 +5,5 @@ import com.kh.khist.dto.MemberDto;
 public interface MemberDao {
 	void join(MemberDto memberDto);
 	MemberDto selectOne(String memberEmail); 
-	MemberDto login(MemberDto memberDto);
+	int login(MemberDto memberDto);
 }

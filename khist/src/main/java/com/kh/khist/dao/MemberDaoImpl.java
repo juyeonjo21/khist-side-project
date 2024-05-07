@@ -37,14 +37,19 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	@Override
-	public MemberDto login(MemberDto memberDto) {
+	public int login(MemberDto memberDto) {
 		MemberDto findDto = selectOne(memberDto.getMemberEmail());
 		if (findDto != null) {// 아이디가 존재한다면
 			boolean result = encoder.matches(memberDto.getMemberPw(), findDto.getMemberPw());
 			if (result == true) {// 비밀번호가 암호화 도구에 의해 맞다고 판정된다면
-				return findDto;
+				return 3;//로그인 성공
+			}
+			else {
+				return 2;//비밀번호 일치하지 않음
 			}
 		}
-		return null;
+		else {
+			return 1;//아이디 존재하지 않음
+		}
 	}
 }

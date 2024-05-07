@@ -36,7 +36,7 @@
 				</tr>
 			</thead>
 				<tbody>
-			<c:forEach var="boardDto" items="${list}">
+			<c:forEach var="boardListVO" items="${list}">
 				<tr>
 					<%-- <c:if test="${sessionScope.level == '관리자'}">
 					<td>
@@ -44,16 +44,16 @@
 						<input type="checkbox" class="check-item" name="boardNoList" value="${boardLikeDto.boardNo}">
 					</td>
 					</c:if> --%>
-					<td>${boardDto.boardNo}</td>
+					<td>${boardListVO.boardNo}</td>
 						<td align="left">
 						<!-- 제목을 누르면 상세페이지로 이동 -->
-						<a class="link" href="detail?boardNo=${boardDto.boardNo}">
-							${boardDto.boardTitle}
+						<a class="link" href="detail?boardNo=${boardListVO.boardNo}">
+							${boardListVO.boardTitle}
 						</a>
 					</td>
-					<td>${writerName}</td>
-					<td>${boardDto.boardDate}</td>
-					<td>${boardDto.boardReadCount}</td>
+					<td>${boardListVO.writerName}</td>
+					<td>${boardListVO.boardDate}</td>
+					<td>${boardListVO.boardReadCount}</td>
 					<td>${boardLikeDto.boardLikecount}</td>
 				</tr>
 				</c:forEach>

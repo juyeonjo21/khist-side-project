@@ -1,5 +1,7 @@
 package com.kh.khist.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.khist.dao.AttachDao;
 import com.kh.khist.dao.BoardDao;
+import com.kh.khist.dto.AttachDto;
 import com.kh.khist.dto.BoardDto;
 import com.kh.khist.vo.BoardListVO;
 
@@ -26,12 +31,24 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
+	@Autowired
+	private AttachDao attachDao;
+	
+	
 	
 	//게시판 조회
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<BoardListVO> list = boardDao.selectList();
-		model.addAttribute("list", list);
+		
+		//각 게시물 작성자 이메일로 회원 이름 조회하여 설정
+		 for (BoardListVO board : list) {
+		      String writerEmail = board.getBoardWriter();
+		      String writerName = boardDao.selectMemberNameByEmail(writerEmail);
+		      board.setWriterName(writerName);
+		    }
+		 
+		model.addAttribute("list", list); 
 		return "board/list";
 	}
 	
@@ -42,13 +59,35 @@ public class BoardController {
 	}
 	
 	@PostMapping("/write")
-	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
+	public String write(@ModelAttribute BoardDto boardDto, HttpSession session, 
+						@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		int boardNo = boardDao.sequence();//번호 구하고
 		boardDto.setBoardNo(boardNo);//dto에 추가
 		
 		String memberEmail = (String) session.getAttribute("email");//id불러오고
 		boardDto.setBoardWriter(memberEmail);
 		boardDao.insert(boardDto);//글 등록
+		
+		if(!attach.isEmpty()) { //파일이 있으면
+			int attachNo = attachDao.sequence();
+			
+			String home = "c:\\upload";
+			File dir = new File(home, "khist");
+			dir.mkdirs();
+			File target = new File(dir, String.valueOf(attachNo));
+			attach.transferTo(target);
+			
+			AttachDto attachDto = new AttachDto();
+			attachDto.setAttachNo(attachNo);
+			attachDto.setAttachName(attach.getOriginalFilename());
+			attachDto.setAttachSize(attach.getSize());
+			attachDto.setAttachType(attach.getContentType());
+			attachDao.insert(attachDto);
+			
+			//연결
+			boardDao.connect(boardNo, attachNo);
+			
+		}
 		return "redirect:/board/list";
 	}
 	

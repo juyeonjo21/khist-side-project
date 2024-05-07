@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.khist.dto.AttachDto;
 import com.kh.khist.dto.BoardDto;
 import com.kh.khist.vo.BoardListVO;
 
@@ -54,6 +55,19 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public String selectMemberNameByEmail(String writerEmail) {
 		return sqlSession.selectOne("board.selectMemberNameByEmail", writerEmail);
+	}
+
+	@Override
+	public AttachDto findBoardImage(int boardNo) {
+		return sqlSession.selectOne("board.findBoardImage", boardNo);
+	}
+
+	@Override
+	public void connect(int boardNo, int attachNo) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("boardNo", boardNo);
+		params.put("attachNo", attachNo);
+		sqlSession.insert("board.connect", params);
 	}
 
 }

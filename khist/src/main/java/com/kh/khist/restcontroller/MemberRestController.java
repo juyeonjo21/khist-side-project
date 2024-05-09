@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,7 @@ public class MemberRestController {
 		int result = memberDao.login(memberDto);
 		
 		if(result == 3) {
+			memberDao.loginUpdage(memberDto.getMemberEmail());
 			session.setAttribute("email", memberDto.getMemberEmail());
 			session.setAttribute("level", memberDto.getMemberLevel());
 			session.setAttribute("course", memberDto.getCourseNo());
@@ -57,6 +59,19 @@ public class MemberRestController {
 				response.addCookie(cookie);
 			}
 		}
+		return result;
+	}
+	
+	@PutMapping("/changePw")
+	public int changePw(
+				@RequestParam String currentPw, 
+				@RequestParam String newPw,
+				HttpSession session
+			) {
+		String memberEmail = (String) session.getAttribute("email");
+		MemberDto memberDto = memberDao.selectOne(memberEmail);
+		memberDto.setMemberPw(currentPw);
+		int result = memberDao.changePw(memberDto, newPw);
 		return result;
 	}
 }

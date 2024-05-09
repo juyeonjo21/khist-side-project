@@ -2,6 +2,8 @@ package com.kh.khist.dao;
 
 
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,5 +53,32 @@ public class MemberDaoImpl implements MemberDao{
 		else {
 			return 1;//아이디 존재하지 않음
 		}
+	}
+	
+	@Override
+	public void loginUpdage(String memberEmail) {
+		sqlSession.update("member.loginUpdate", memberEmail);
+	}
+	
+	@Override
+	public int changePw(MemberDto memberDto, String newPw) {
+		MemberDto findDto = selectOne(memberDto.getMemberEmail());
+		if(findDto != null) {
+			boolean result = encoder.matches(memberDto.getMemberPw(), findDto.getMemberPw());
+			if(result) {
+				boolean samePwAgain = encoder.matches(newPw, findDto.getMemberPw());
+				if(samePwAgain) {
+					return 4;
+				}
+				else {
+					String encrypt = encoder.encode(newPw);
+					Map<String, Object> param = Map.of("memberEmail", memberDto.getMemberEmail(), "memberPw", encrypt);
+					sqlSession.update("member.changePw", param);
+					return 3;	
+				}
+			}
+			else return 2;//비밀번호 불일치
+		}
+		else return 1;//아이디 없음
 	}
 }

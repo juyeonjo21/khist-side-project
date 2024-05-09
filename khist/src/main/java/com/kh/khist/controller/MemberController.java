@@ -1,14 +1,13 @@
 package com.kh.khist.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.khist.configuration.EncryptConfiguration;
 import com.kh.khist.dao.MemberDao;
 import com.kh.khist.dto.MemberDto;
 
@@ -66,4 +65,13 @@ public class MemberController {
 		session.removeAttribute("course");
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/mypage")
+	public String mypage(HttpSession session, Model model) {
+		String memberEmail = (String) session.getAttribute("email");
+		MemberDto memberDto = memberDao.selectOne(memberEmail);
+		model.addAttribute("memberDto", memberDto);
+		return "member/mypage";
+	}
+	
 }

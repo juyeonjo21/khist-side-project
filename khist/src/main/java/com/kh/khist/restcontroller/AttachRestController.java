@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.khist.configuration.FileUploadProperties;
@@ -29,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "이미지 관리", description = "이미지 관리를 위한 컨트롤러")
 @CrossOrigin
 @RestController
-@RequestMapping("/rest/attach")
+@RequestMapping("/attach")
 public class AttachRestController {
 	
 	@Autowired
@@ -52,19 +54,27 @@ public class AttachRestController {
 	@GetMapping("/board/{boardNo}")
 	public ResponseEntity<ByteArrayResource>downloadBoardImage(@PathVariable int boardNo) throws IOException{
 		
-		AttachDto imageBoardDto = boardDao.findBoardImage(boardNo);
+		AttachDto attachDto = boardDao.findBoardImage(boardNo);
 		
-		File target = new File(dir,String.valueOf(imageBoardDto.getAttachNo()));
+		if(attachDto == null) { //파일이 없으면
+			return ResponseEntity.notFound().build(); //404반환
+		}
+
+		String home = "c:\\upload";
+		File dir = new File(home, "khist");
+		
+		File target = new File(dir,String.valueOf(attachDto.getAttachNo()));
+		
 		byte[] data = FileUtils.readFileToByteArray(target);//파일 정보 불러오기
 		ByteArrayResource resource = new ByteArrayResource(data);
 		
 		
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name())
-				.contentLength(imageBoardDto.getAttachSize())
-				.header(HttpHeaders.CONTENT_TYPE, imageBoardDto.getAttachType())
+				.contentLength(attachDto.getAttachSize())
+				.header(HttpHeaders.CONTENT_TYPE, attachDto.getAttachType())
 				.contentType(MediaType.APPLICATION_OCTET_STREAM)
-				.header("content-Disposition", "attachment;filename=" + imageBoardDto.getAttachName())
+				.header("content-Disposition", "attachment;filename=" + attachDto.getAttachName())
 				.body(resource);
 		
 	}
@@ -78,6 +88,7 @@ public class AttachRestController {
 		byte[] data = FileUtils.readFileToByteArray(target);
 		ByteArrayResource resource = new ByteArrayResource(data);
 		
+		
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name())
 				.contentLength(attachDto.getAttachSize())
@@ -86,6 +97,6 @@ public class AttachRestController {
 				.header("content-Disposition", "attachment;filename=" + attachDto.getAttachName())
 				.body(resource);
 	}
-
+	
 	
 }

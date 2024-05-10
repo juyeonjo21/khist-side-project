@@ -47,7 +47,7 @@
     		form.append("attach", input.files[0]);
     		
     		$.ajax({
-    			url:window.contextPath+"/c##khist",
+    			url:window.contextPath+"/khist",
     			
     			method:"post",
     			processData:false,
@@ -94,8 +94,9 @@
     			</div>
     			<div class="row left">
     				<div class="row">
-    					<input type="file" placeholder="사진 첨부" required class="w-100 file-chooser mt-2"
+    					첨부파일 선택 <input type="file" class="w-100 file-chooser mt-2"
     					 name="attach" accept="image/*">
+    					 
     				</div>
     			</div>
     				<div class="row left">

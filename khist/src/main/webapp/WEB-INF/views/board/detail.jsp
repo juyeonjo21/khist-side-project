@@ -23,10 +23,9 @@
 					<td>작성일 : ${boardDto.boardDate}</td>
 				</tr>
 				<tr>
-					<td> 첨부파일 : 
-					<img id="boardImage${boardDto.boardNo}"
-					src="${pageContext.request.contextPath}/image?boardNo=${boardDto.boardNo}" width="100"
-					height="100">
+					<td> 첨부파일  <br> 
+					<img id="boardImage${attachDto.attachNo}" src="${pageContext.request.contextPath}/attach/board/${attachDto.attachNo}"
+     width="300" height="300">
 					</td>
 				</tr>
 				<tr>

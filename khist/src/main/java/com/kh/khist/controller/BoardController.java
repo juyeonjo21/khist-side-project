@@ -74,15 +74,17 @@ public class BoardController {
 			String home = "c:\\upload";
 			File dir = new File(home, "khist");
 			dir.mkdirs();
-			File target = new File(dir, String.valueOf(attachNo));
-			attach.transferTo(target);
 			
-			AttachDto attachDto = new AttachDto();
+			
+			File target = new File(dir, String.valueOf(attachNo));//attachNo로 저장될 파일
+			attach.transferTo(target);//저장
+			
+			AttachDto attachDto = new AttachDto();//파일 정보들 저장
 			attachDto.setAttachNo(attachNo);
 			attachDto.setAttachName(attach.getOriginalFilename());
 			attachDto.setAttachSize(attach.getSize());
 			attachDto.setAttachType(attach.getContentType());
-			attachDao.insert(attachDto);
+			attachDao.insert(attachDto);//등록
 			
 			//연결
 			boardDao.connect(boardNo, attachNo);
@@ -90,6 +92,8 @@ public class BoardController {
 		}
 		return "redirect:/board/list";
 	}
+	
+	
 	
 	//게시글 상세
 	@RequestMapping("/detail")

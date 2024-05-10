@@ -17,7 +17,7 @@
     		attach_no, attach_name, attach_size, attach_type
     	)
     	values(
-    		#{attach_no},#{attach_name},#{attach_size},#{attach_type}
+    		#{attachNo},#{attachName},#{attachSize},#{attachType}
     	 )
     </insert>
     
